@@ -29,6 +29,7 @@ var app = app || {};
 		// We keep the Todos in sequential order, despite being saved by unordered
 		// GUID in the database. This generates the next order number for new items.
 		nextOrder: function () {
+			//Uses Underscore's last function to retrieve the last todo of the collection, then gets its order and adds one.
 			return this.length ? this.last().get('order') + 1 : 1;
 		},
 
