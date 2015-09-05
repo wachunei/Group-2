@@ -22,7 +22,7 @@ var app = app || {};
 			'keypress .new-todo': 'createOnEnter',
 			'click .clear-completed': 'clearCompleted',
 			'click .toggle-all': 'toggleAllComplete',
-			'keydown #form-priority input': 'createOnEnter'
+			'click #form-priority input[type=radio]': 'backFocus'
 		},
 
 		// At initialization we bind to the relevant events on the `Todos`
@@ -114,6 +114,10 @@ var app = app || {};
 				app.todos.create(this.newAttributes());
 				this.$input.val('');
 			}
+		},
+
+		backFocus: function(ev) {
+			this.$input.focus();
 		},
 
 		// Clear all completed todo items, destroying their models.
