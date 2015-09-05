@@ -21,7 +21,8 @@ var app = app || {};
 		events: {
 			'keypress .new-todo': 'createOnEnter',
 			'click .clear-completed': 'clearCompleted',
-			'click .toggle-all': 'toggleAllComplete'
+			'click .toggle-all': 'toggleAllComplete',
+			'keydown #form-priority input': 'createOnEnter'
 		},
 
 		// At initialization we bind to the relevant events on the `Todos`
@@ -30,7 +31,7 @@ var app = app || {};
 		initialize: function () {
 			this.allCheckbox = this.$('.toggle-all')[0];
 			this.$input = this.$('.new-todo');
-			this.$priority = this.$('.add-priority');
+			this.$priority = this.$('#form-priority');
 			this.$footer = this.$('.footer');
 			this.$main = this.$('.main');
 			this.$list = $('.todo-list');
@@ -102,7 +103,7 @@ var app = app || {};
 				title: this.$input.val().trim(),
 				order: app.todos.nextOrder(),
 				completed: false,
-				priority: this.$priority.val()
+				priority: this.$priority.find('input[name=priority]:checked').val()
 			};
 		},
 
@@ -112,7 +113,6 @@ var app = app || {};
 			if (e.which === ENTER_KEY && this.$input.val().trim()) {
 				app.todos.create(this.newAttributes());
 				this.$input.val('');
-				this.$priority.val("");
 			}
 		},
 

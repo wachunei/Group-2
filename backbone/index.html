@@ -5,19 +5,24 @@
 		<title>Backbone.js • TodoMVC</title>
 		<link rel="stylesheet" href="node_modules/todomvc-common/base.css">
 		<link rel="stylesheet" href="node_modules/todomvc-app-css/index.css">
+		<link rel="stylesheet" href="css/custom.css">
 	</head>
 	<body>
 		<section class="todoapp">
 			<header class="header">
 				<h1>todos</h1>
 				<input class="new-todo" placeholder="What needs to be done?" autofocus>
-				<select class="add-priority">
-					<option value=""disabled selected>Choose a priority</option>
-					<option value="1">Now</option>
-					<option value="2">Soon</option>
-					<option value="3">Later</option>
-					<option value="4">Someday</option>
-				</select>
+				<form id="form-priority">
+					<span class="when-text">When?</span>
+					<input type="radio" name="priority" id="radio-now" value="now" checked>
+					<label for="radio-now">Now</label>
+					<input type="radio" name="priority" id="radio-soon" value="soon">
+					<label for="radio-soon">Soon</label>
+					<input type="radio" name="priority" id="radio-later" value="later">
+					<label for="radio-later">Later</label>
+					<input type="radio" name="priority" id="radio-someday" value="someday">
+					<label for="radio-someday">Someday</label>
+				</form>
 			</header>
 			<section class="main">
 				<input class="toggle-all" type="checkbox">
@@ -35,6 +40,7 @@
 			<div class="view">
 				<input class="toggle" type="checkbox" <%= completed ? 'checked' : '' %>>
 				<label><%- title %></label>
+				<span class="priority"><%- priority %></span>
 				<button class="destroy"></button>
 			</div>
 			<input class="edit" value="<%- title %>">

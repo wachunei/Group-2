@@ -1,0 +1,45 @@
+.new-todo {
+  box-shadow: none;
+}
+
+#form-priority {
+  margin: 0 5px 20px 60px;
+  padding: 5px 0;
+
+}
+
+#form-priority .when-text {
+  display: block;
+  padding: 2px 0;
+  font-style: italic;
+}
+
+#form-priority input {
+  display: none;
+}
+
+#form-priority label {
+  cursor: pointer;
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(200,200,200,0.6);
+  color: #333;
+}
+
+#form-priority input:checked + label {
+  border: 1px solid rgba(200,200,200,1);
+  color: black;
+  background: rgba(175, 47, 47, 0.15);
+}
+
+.todo-list li {
+  padding-bottom: 15px;
+}
+.todo-list li label {
+  padding-bottom: 0;
+}
+.todo-list li .priority {
+  margin-left: 60px;
+  font-size: 14px;
+}
