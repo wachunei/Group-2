@@ -47,7 +47,7 @@ var app = app || {};
 			if (this.model.changed.id !== undefined) {
 				return;
 			}
-			console.log(this.model.toJSON());
+			console.log(this.model.toJSON().priority);
 			this.$el.html(this.template(this.model.toJSON()));
 			this.$el.toggleClass('completed', this.model.get('completed'));
 			this.toggleVisible();

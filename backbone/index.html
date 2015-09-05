@@ -13,10 +13,10 @@
 				<input class="new-todo" placeholder="What needs to be done?" autofocus>
 				<select class="add-priority">
 					<option value=""disabled selected>Choose a priority</option>
-					<option value="now">Now</option>
-					<option value="soon">Soon</option>
-					<option value="later">Later</option>
-					<option value="someday">Someday</option>
+					<option value="1">Now</option>
+					<option value="2">Soon</option>
+					<option value="3">Later</option>
+					<option value="4">Someday</option>
 				</select>
 			</header>
 			<section class="main">
@@ -50,6 +50,18 @@
 				</li>
 				<li>
 					<a href="#/completed">Completed</a>
+				</li>
+				<li>
+					<a href="#/now">Now</a>
+				</li>
+				<li>
+					<a href="#/soon">Soon</a>
+				</li>
+				<li>
+					<a href="#/later">Later</a>
+				</li>
+				<li>
+					<a href="#/someday">Someday</a>
 				</li>
 			</ul>
 			<% if (completed) { %>
