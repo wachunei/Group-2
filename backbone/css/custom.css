@@ -47,3 +47,17 @@
 .todo-list li .destroy {
   height: auto;
 }
+
+.filters {
+  position: relative;
+  margin: 10px auto;
+  padding: 0;
+}
+.todo-count {
+  float: none;
+  font-size: 11px;
+}
+.footer {
+  height: auto;
+  padding-bottom: 40px;
+}
