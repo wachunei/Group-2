@@ -63,10 +63,6 @@ var app = app || {};
 					remaining: remaining
 				}));
 
-				this.$('.filters li a')
-					.removeClass('selected')
-					.filter('[href="#/' + (app.TodoFilter || '') + '"]')
-					.addClass('selected');
 			} else {
 				this.$main.hide();
 				this.$footer.hide();
@@ -135,5 +131,6 @@ var app = app || {};
 				});
 			});
 		}
+
 	});
 })(jQuery);

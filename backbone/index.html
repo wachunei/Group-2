@@ -49,28 +49,30 @@
 			<span class="todo-count"><strong><%= remaining %></strong> <%= remaining === 1 ? 'item' : 'items' %> left</span>
 			<ul class="filters">
 				<li>
-					<a class="selected" href="#/">All</a>
+					<a class="<%= helpers.statusFilterClass() %>" href="#<%= helpers.statusFilterLink('/') %>">All</a>
 				</li>
 				<li>
-					<a href="#/active">Active</a>
+					<a class="<%= helpers.statusFilterClass('active') %>" href="#<%= helpers.statusFilterLink('/active') %>">Active</a>
 				</li>
 				<li>
-					<a href="#/completed">Completed</a>
+					<a class="<%= helpers.statusFilterClass('completed') %>" href="#<%= helpers.statusFilterLink('/completed') %>">Completed</a>
 				</li>
-
 			</ul>
 			<ul class="filters">
 				<li>
-					<a href="#/now">Now</a>
+					<a class="<%= helpers.priorityFilterClass() %>" href="#<%= helpers.priorityFilterLink('/') %>">All</a>
 				</li>
 				<li>
-					<a href="#/soon">Soon</a>
+					<a class="<%= helpers.priorityFilterClass('now') %>" href="#<%= helpers.priorityFilterLink('/now') %>">Now</a>
 				</li>
 				<li>
-					<a href="#/later">Later</a>
+					<a class="<%= helpers.priorityFilterClass('soon') %>" href="#<%= helpers.priorityFilterLink('/soon') %>">Soon</a>
 				</li>
 				<li>
-					<a href="#/someday">Someday</a>
+					<a class="<%= helpers.priorityFilterClass('later') %>" href="#<%= helpers.priorityFilterLink('/later') %>">Later</a>
+				</li>
+				<li>
+					<a class="<%= helpers.priorityFilterClass('someday') %>" href="#<%= helpers.priorityFilterLink('/someday') %>">Someday</a>
 				</li>
 			</ul>
 			<% if (completed) { %>
@@ -87,6 +89,7 @@
 		<script src="js/views/todo-view.js"></script>
 		<script src="js/views/app-view.js"></script>
 		<script src="js/routers/router.js"></script>
+		<script src="js/helpers.js"></script>
 		<script src="js/app.js"></script>
 	</body>
 </html>

@@ -60,9 +60,22 @@ var app = app || {};
 		},
 
 		isHidden: function () {
-			return this.model.get('completed') ?
-				app.TodoFilter === 'active' :
-				app.TodoFilter === 'completed';
+			if(!$.isEmptyObject(app.TodoFilter)) {
+
+				var status  = this.model.get('completed')? 'completed' : 'active';
+				var priority = this.model.get('priority');
+				var statusFilter = app.TodoFilter.statusFilter;
+				var priorityFilter = app.TodoFilter.priorityFilter;
+
+				if(statusFilter && priorityFilter ) {
+					return !(statusFilter === status && priorityFilter === priority);
+				} else if (statusFilter) {
+					return statusFilter !== status;
+				} else {
+					return priorityFilter !== priority;
+				}
+			}
+			return false;
 		},
 
 		// Toggle the `"completed"` state of the model.
