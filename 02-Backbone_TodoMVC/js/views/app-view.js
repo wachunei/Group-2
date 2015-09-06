@@ -22,7 +22,8 @@ var app = app || {};
 			'keypress .new-todo': 'createOnEnter',
 			'click .clear-completed': 'clearCompleted',
 			'click .toggle-all': 'toggleAllComplete',
-			'click #form-priority input[type=radio]': 'backFocus'
+			'click #form-priority input[type=radio]': 'backFocus',
+			'click #form-sorting-strategy input[type=radio]' : 'chooseStrategy'
 		},
 
 		// At initialization we bind to the relevant events on the `Todos`
@@ -35,8 +36,9 @@ var app = app || {};
 			this.$footer = this.$('.footer');
 			this.$main = this.$('.main');
 			this.$list = $('.todo-list');
+			this.$sortingStrategy = this.$('#form-sorting-strategy');
 			//Revisar el método de ordenamiento
-			this.listenTo(app.todos, 'add', this.addAll);
+			this.listenTo(app.todos, 'add', this.addOne);
 			this.listenTo(app.todos, 'reset', this.addAll);
 			this.listenTo(app.todos, 'change:completed', this.filterOne);
 			this.listenTo(app.todos, 'filter', this.filterAll);
@@ -130,6 +132,10 @@ var app = app || {};
 					completed: completed
 				});
 			});
+		},
+
+		chooseStrategy: function(ev) {
+			this.$input.focus();
 		}
 
 	});

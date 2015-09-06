@@ -1,9 +1,9 @@
 var app = app || {};
 var helpers = helpers || {};
 (function($) {
-		helpers.statusFilterLink = function(path) {
-			return (app.TodoFilter.priorityFilter)?'/'+app.TodoFilter.priorityFilter+path: path;
-		};
+	helpers.statusFilterLink = function(path) {
+		return (app.TodoFilter.priorityFilter)?'/'+app.TodoFilter.priorityFilter+path: path;
+	};
 
     helpers.priorityFilterLink = function(path) {
       return (app.TodoFilter.statusFilter)?path+'/'+app.TodoFilter.statusFilter: path;
