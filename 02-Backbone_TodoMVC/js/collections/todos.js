@@ -33,8 +33,16 @@ var app = app || {};
 			return this.length ? this.last().get('order') + 1 : 1;
 		},
 
+		orderStrategie: 'priority',
+
 		// Todos are sorted by their original insertion order.
-		comparator: 'order'
+		comparator: function(todo) {
+			if(this.orderStrategie == 'order') {
+				return 'order';
+			} else if(this.orderStrategie == 'priority') {
+				return _.indexOf(['now','soon', 'later', 'someday'], todo.get('priority'));
+			}
+		}
 	});
 
 	// Create our global collection of **Todos**.
