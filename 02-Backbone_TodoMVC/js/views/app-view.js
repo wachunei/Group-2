@@ -35,8 +35,8 @@ var app = app || {};
 			this.$footer = this.$('.footer');
 			this.$main = this.$('.main');
 			this.$list = $('.todo-list');
-
-			this.listenTo(app.todos, 'add', this.addOne);
+			//Revisar el método de ordenamiento
+			this.listenTo(app.todos, 'add', this.addAll);
 			this.listenTo(app.todos, 'reset', this.addAll);
 			this.listenTo(app.todos, 'change:completed', this.filterOne);
 			this.listenTo(app.todos, 'filter', this.filterAll);
