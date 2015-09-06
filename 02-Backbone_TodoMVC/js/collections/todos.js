@@ -33,13 +33,13 @@ var app = app || {};
 			return this.length ? this.last().get('order') + 1 : 1;
 		},
 
-		orderStrategie: 'priority',
+		orderStrategy: 'priority',
 
 		// Todos are sorted by their original insertion order.
 		comparator: function(todo) {
-			if(this.orderStrategie == 'order') {
+			if(this.orderStrategy == 'order') {
 				return 'order';
-			} else if(this.orderStrategie == 'priority') {
+			} else if(this.orderStrategy == 'priority') {
 				return _.indexOf(['now','soon', 'later', 'someday'], todo.get('priority'));
 			}
 		}

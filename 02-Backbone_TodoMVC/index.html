@@ -75,6 +75,13 @@
 					<a class="<%= helpers.priorityFilterClass('someday') %>" href="#<%= helpers.priorityFilterLink('/someday') %>">Someday</a>
 				</li>
 			</ul>
+			<span class="sort-text">Sort by:</span>
+			<form id="form-sorting-strategy">
+				<input type="radio" name="insertion" id="radio-insertion" value="insertion" checked>
+				<label for="radio-insertion">Insertion</label>
+				<input type="radio" name="priority-order" id="radio-priority" value="soon">
+				<label for="radio-priority">Priority</label>
+			</form>
 			<% if (completed) { %>
 			<button class="clear-completed">Clear completed</button>
 			<% } %>
