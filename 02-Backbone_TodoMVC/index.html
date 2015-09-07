@@ -45,10 +45,10 @@
 			</div>
 			<input class="edit" value="<%- title %>">
 			<select class="edit-priority">
-				<option value="now">Now</option>
-				<option value="soon">Soon</option>
-				<option value="later">Later</option>
-				<option value="someday">Someday</option>
+				<option value="now" <%= priority == 'now' ? 'selected': '' %>>Now</option>
+				<option value="soon" <%= priority == 'soon' ? 'selected': '' %>>Soon</option>
+				<option value="later" <%= priority == 'later' ? 'selected': '' %>>Later</option>
+				<option value="someday" <%= priority == 'someday' ? 'selected': '' %>>Someday</option>
 			</select>
 		</script>
 		<script type="text/template" id="stats-template">
