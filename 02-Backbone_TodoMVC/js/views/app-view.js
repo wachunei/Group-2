@@ -22,7 +22,8 @@ var app = app || {};
 			'keypress .new-todo': 'createOnEnter',
 			'click .clear-completed': 'clearCompleted',
 			'click .toggle-all': 'toggleAllComplete',
-			'click #form-priority input[type=radio]': 'backFocus'
+			'click #form-priority input[type=radio]': 'backFocus',
+			'click #form-sorting-strategy input[type=radio]' : 'chooseStrategy'
 		},
 
 		// At initialization we bind to the relevant events on the `Todos`
@@ -35,8 +36,8 @@ var app = app || {};
 			this.$footer = this.$('.footer');
 			this.$main = this.$('.main');
 			this.$list = $('.todo-list');
-
-			this.listenTo(app.todos, 'add', this.addOne);
+			//Revisar el método de ordenamiento
+			this.listenTo(app.todos, 'add', this.addAll);
 			this.listenTo(app.todos, 'reset', this.addAll);
 			this.listenTo(app.todos, 'change:completed', this.filterOne);
 			this.listenTo(app.todos, 'filter', this.filterAll);
@@ -51,6 +52,7 @@ var app = app || {};
 		// Re-rendering the App just means refreshing the statistics -- the rest
 		// of the app doesn't change.
 		render: function () {
+			console.log(app.todos.orderStrategy);
 			var completed = app.todos.completed().length;
 			var remaining = app.todos.remaining().length;
 
@@ -69,6 +71,7 @@ var app = app || {};
 			}
 
 			this.allCheckbox.checked = !remaining;
+			this.$sortingStrategy = this.$('#form-sorting-strategy');
 		},
 
 		// Add a single todo item to the list by creating a view for it, and
@@ -130,6 +133,13 @@ var app = app || {};
 					completed: completed
 				});
 			});
+		},
+
+		chooseStrategy: function(ev) {
+			app.todos.orderStrategy = this.$sortingStrategy.find('input[name=sorting]:checked').val();
+			this.$list.html('');
+			app.todos.sort();
+			this.addAll();
 		}
 
 	});
