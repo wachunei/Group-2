@@ -36,9 +36,8 @@ var app = app || {};
 			this.$footer = this.$('.footer');
 			this.$main = this.$('.main');
 			this.$list = $('.todo-list');
-			this.$sortingStrategy = this.$('#form-sorting-strategy');
 			//Revisar el método de ordenamiento
-			this.listenTo(app.todos, 'add', this.addOne);
+			this.listenTo(app.todos, 'add', this.addAll);
 			this.listenTo(app.todos, 'reset', this.addAll);
 			this.listenTo(app.todos, 'change:completed', this.filterOne);
 			this.listenTo(app.todos, 'filter', this.filterAll);
@@ -71,6 +70,10 @@ var app = app || {};
 			}
 
 			this.allCheckbox.checked = !remaining;
+			this.$sortingStrategy = this.$('#form-sorting-strategy');
+			console.log(app.todos.orderStrategy);
+			console.log(this.$sortingStrategy.find('input[name=sorting]:checked').val());
+			$('#radio-insertion').prop('checked', true);
 		},
 
 		// Add a single todo item to the list by creating a view for it, and
@@ -136,6 +139,8 @@ var app = app || {};
 
 		chooseStrategy: function(ev) {
 			this.$input.focus();
+			app.todos.orderStrategy = this.$sortingStrategy.find('input[name=sorting]:checked').val();
+			this.addAll();
 		}
 
 	});
