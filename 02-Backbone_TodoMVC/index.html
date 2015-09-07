@@ -77,9 +77,9 @@
 			</ul>
 			<span class="sort-text">Sort by:</span>
 			<form id="form-sorting-strategy">
-				<input type="radio" name="sorting" id="radio-insertion" value="insertion" checked>
+				<input type="radio" name="sorting" id="radio-insertion" value="order" <%= helpers.sortingStrategy('order') %> >
 				<label for="radio-insertion">Insertion</label>
-				<input type="radio" name="sorting" id="radio-priority" value="priority">
+				<input type="radio" name="sorting" id="radio-priority" value="priority" <%= helpers.sortingStrategy('priority') %> ">
 				<label for="radio-priority">Priority</label>
 			</form>
 			<% if (completed) { %>

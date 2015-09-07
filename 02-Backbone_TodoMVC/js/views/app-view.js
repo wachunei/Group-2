@@ -52,6 +52,7 @@ var app = app || {};
 		// Re-rendering the App just means refreshing the statistics -- the rest
 		// of the app doesn't change.
 		render: function () {
+			console.log(app.todos.orderStrategy);
 			var completed = app.todos.completed().length;
 			var remaining = app.todos.remaining().length;
 
@@ -71,9 +72,6 @@ var app = app || {};
 
 			this.allCheckbox.checked = !remaining;
 			this.$sortingStrategy = this.$('#form-sorting-strategy');
-			console.log(app.todos.orderStrategy);
-			console.log(this.$sortingStrategy.find('input[name=sorting]:checked').val());
-			$('#radio-insertion').prop('checked', true);
 		},
 
 		// Add a single todo item to the list by creating a view for it, and
@@ -138,8 +136,9 @@ var app = app || {};
 		},
 
 		chooseStrategy: function(ev) {
-			this.$input.focus();
 			app.todos.orderStrategy = this.$sortingStrategy.find('input[name=sorting]:checked').val();
+			this.$list.html('');
+			app.todos.sort();
 			this.addAll();
 		}
 
