@@ -38,7 +38,7 @@ var app = app || {};
 		// Todos are sorted by their original insertion order.
 		comparator: function(todo) {
 			if(this.orderStrategy == 'order') {
-				return 'order';
+				return todo.get('order');
 			} else if (this.orderStrategy == 'priority') {
 				return _.indexOf(['now','soon', 'later', 'someday'], todo.get('priority'));
 			}
