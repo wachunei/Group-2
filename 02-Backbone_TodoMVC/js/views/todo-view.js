@@ -22,7 +22,9 @@ var app = app || {};
 			'click .destroy': 'clear',
 			'keypress .edit': 'updateOnEnter',
 			'keydown .edit': 'revertOnEscape',
-			'blur .edit': 'close'
+			'blur .edit': 'close',
+			'dblclick .priority' : 'editPriority',
+			'blur .edit-priority' : 'closePriorityChange'
 		},
 
 		// The TodoView listens for changes to its model, re-rendering. Since
@@ -51,6 +53,7 @@ var app = app || {};
 			this.$el.toggleClass('completed', this.model.get('completed'));
 			this.toggleVisible();
 			this.$input = this.$('.edit');
+			this.$priorityInput = this.$('.edit-priority');
 			return this;
 		},
 
@@ -88,6 +91,11 @@ var app = app || {};
 			this.$input.focus();
 		},
 
+		editPriority: function() {
+			this.$el.addClass('editing-priority');
+			this.$priorityInput.focus();
+		},
+
 		// Close the `"editing"` mode, saving changes to the todo.
 		close: function () {
 			var value = this.$input.val();
@@ -117,6 +125,15 @@ var app = app || {};
 			}
 
 			this.$el.removeClass('editing');
+		},
+
+		closePriorityChange: function() {
+			var value = this.$priorityInput.val();
+			if (!this.$el.hasClass('editing-priority')) {
+				return;
+			}
+			this.model.save({ priority: value });
+			this.$el.removeClass('editing-priority');
 		},
 
 		// If you hit `enter`, we're through editing the item.

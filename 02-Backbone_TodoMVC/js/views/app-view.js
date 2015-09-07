@@ -52,7 +52,6 @@ var app = app || {};
 		// Re-rendering the App just means refreshing the statistics -- the rest
 		// of the app doesn't change.
 		render: function () {
-			console.log(app.todos.orderStrategy);
 			var completed = app.todos.completed().length;
 			var remaining = app.todos.remaining().length;
 
