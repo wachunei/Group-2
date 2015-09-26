@@ -11,7 +11,7 @@
       this.currentType = "length";
 
       this.updateMagnitudes = function(sender) {
-        $log.log(this.currentFirstUnit === this.currentSecondUnit);
+        $log.log(this.c);
         if(this.currentFirstUnit === this.currentSecondUnit) {
           if (sender === 1) this.secondMagnitude = this.firstMagnitude;
           else if (sender === 2) this.firstMagnitude = this.secondMagnitude;
@@ -19,13 +19,14 @@
         }
 
         if(sender === 1) {
-          this.secondMagnitude = this.c[this.currentType][this.currentFirstUnit][this.currentSecondUnit](this.firstMagnitude);
-          $log.log(this.secondMagnitude);
+          this.secondMagnitude = this.c[this.currentType][this.currentFirstUnit][this.currentSecondUnit].calc(this.firstMagnitude);
         } else if(sender ===2) {
-          this.firstMagnitude = this.c[this.currentType][this.currentSecondUnit][this.currentFirstUnit](this.secondMagnitude);
-          $log.log(this.firstMagnitude);
+          this.firstMagnitude = this.c[this.currentType][this.currentSecondUnit][this.currentFirstUnit].calc(this.secondMagnitude);
         }
-        $log.log(this.firstMagnitude);
+      };
+
+      this.toggleFavorite = function (type, unit, favorite) {
+        converterService.setFavorite(type, unit, favorite);
       };
   }]);
 
@@ -59,8 +60,8 @@
         if (!converter[type][sUnit][fUnit]) {
           converter[type][sUnit][fUnit] = {};
         }
-        converter[type][fUnit][sUnit] = converterService.evaluate(m)(c);
-        converter[type][sUnit][fUnit] = converterService.evaluate(m_)(c_);
+        converter[type][fUnit][sUnit].calc = converterService.evaluate(m)(c);
+        converter[type][sUnit][fUnit].calc = converterService.evaluate(m_)(c_);
 
         dataService.newConvertion(type, fUnit, sUnit, m, c);
         dataService.newConvertion(type, sUnit, fUnit, m_, c_);

@@ -27,15 +27,17 @@
           sUnit = obj.sUnit,
           m = obj.slope,
           c = obj.intercept;
+          favorite = obj.favorite;
 
         if (!converter[type][fUnit]) {
           converter[type][fUnit] = {};
         }
+        converter[type][fUnit].favorite = favorite;
 
         if (!converter[type][fUnit][sUnit]) {
           converter[type][fUnit][sUnit] = {};
         }
-        converter[type][fUnit][sUnit] = self.evaluate(m)(c);
+        converter[type][fUnit][sUnit].calc = self.evaluate(m)(c);
       });
 
       self.converter = converter;
@@ -50,6 +52,10 @@
         time: {}
       };
     }
+
+    self.setFavorite = function(type, unit, favorite) {
+      dataService.setFavorite(type, unit, favorite);
+    };
   }]);
 
   app.service('dataService', ['storageService',
@@ -75,6 +81,15 @@
           });
         }
       };
+
+      self.setFavorite = function (type, unit, favorite) {
+        self.storedData
+          .filter(function(e) { return e.type === type && e.fUnit === unit})
+          .map(function(e) {
+            e.favorite = favorite;
+          });
+        self.saveData();
+      }
 
       self.saveData = function() {
         storageService.saveData(self.storedData);

@@ -81,6 +81,11 @@
         <input type="number" step="any" ng-model="converter.firstMagnitude"
         ng-change="converter.updateMagnitudes(1)">
 
+        <input type="checkbox"
+            ng-disabled="converter.currentFirstUnit == null"
+            ng-model="converter.c[converter.currentType][converter.currentFirstUnit].favorite"
+            ng-change="converter.toggleFavorite(converter.currentType, converter.currentFirstUnit, converter.c[converter.currentType][converter.currentFirstUnit].favorite)" />
+
         <select ng-model="converter.currentFirstUnit" ng-change="converter.updateMagnitudes(2)" required>
             <option value="" ng-if="false"></option>
             <option ng-repeat="(key, value) in converter.c[converter.currentType]" value="{{key}}">{{key}}</option>
@@ -90,6 +95,10 @@
         <input type="number" step="any" ng-model="converter.secondMagnitude"
         ng-change="converter.updateMagnitudes(2)">
 
+        <input type="checkbox"
+            ng-disabled="converter.currentSecondUnit == null"
+            ng-model="converter.c[converter.currentType][converter.currentSecondUnit].favorite"
+            ng-change="converter.toggleFavorite(converter.currentType, converter.currentFirstUnit, converter.c[converter.currentType][converter.currentFirstUnit].favorite)" />
 
         <select ng-model="converter.currentSecondUnit" ng-change="converter.updateMagnitudes(1)" required>
             <option value="" ng-if="false"></option>
