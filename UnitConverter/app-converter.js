@@ -58,13 +58,22 @@
       self.storedData = storageService.getData() ||  [];
 
       self.newConvertion = function(type, fUnit, sUnit, m, c) {
-        self.storedData.push({
-          type: type,
-          fUnit: fUnit,
-          sUnit: sUnit,
-          slope: m,
-          intercept: c
-        });
+        var index = self.storedData
+                    .map(function(e) { return e.type+"|"+e.fUnit+"|"+e.sUnit;})
+                    .indexOf(type+"|"+fUnit+"|"+sUnit);
+
+        if (index != -1) {
+          self.storedData[index].slope = m;
+          self.storedData[index].intercept = c;
+        } else {
+          self.storedData.push({
+            type: type,
+            fUnit: fUnit,
+            sUnit: sUnit,
+            slope: m,
+            intercept: c
+          });
+        }
       };
 
       self.saveData = function() {

@@ -73,6 +73,7 @@
     </div>
 
     <h1>Convert</h2>
+    <!-- Converter, this could be a directive with its own controller -->
     <select ng-model="converter.currentType">
         <option ng-repeat="(key, value) in converter.c" value="{{key}}">{{key}}</option>
     </select>
@@ -97,6 +98,7 @@
     </div>
 
     <h2>Add conversion</h2>
+    <!-- Converter form, this definitely should be a directive with its own controller -->
     <form name="newConversion" ng-controller="UnitFormController as unitFormCtrl"
         ng-submit="newConversion.$valid && unitFormCtrl.addConversion()">
         <select ng-model="unitFormCtrl.selectedType" required>
@@ -111,13 +113,13 @@
             <input type="number" placeholder="c" ng-model="unitFormCtrl.intercept" required>
         </div>
 
-        <div ng-show="newConversion.$valid">
+        <div>
             Adding convertion to {{unitFormCtrl.selectedType}}:
             {{"1 " + unitFormCtrl.firstUnit + " = " + unitFormCtrl.slope +" &times; " +
             unitFormCtrl.secondUnit + " + " + unitFormCtrl.intercept
             }}
-
-            <input type="submit" value="Submit" />
+            <br >
+            <input type="submit" value="Submit" ng-disabled="!newConversion.$valid" />
         </div>
     </form>
 
