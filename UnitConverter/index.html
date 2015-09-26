@@ -98,12 +98,15 @@
         <input type="checkbox"
             ng-disabled="converter.currentSecondUnit == null"
             ng-model="converter.c[converter.currentType][converter.currentSecondUnit].favorite"
-            ng-change="converter.toggleFavorite(converter.currentType, converter.currentFirstUnit, converter.c[converter.currentType][converter.currentFirstUnit].favorite)" />
+            ng-change="converter.toggleFavorite(converter.currentType, converter.currentSecondUnit, converter.c[converter.currentType][converter.currentSecondUnit].favorite)" />
 
         <select ng-model="converter.currentSecondUnit" ng-change="converter.updateMagnitudes(1)" required>
             <option value="" ng-if="false"></option>
             <option ng-repeat="(key, value) in converter.c[converter.currentType]" value="{{key}}">{{key}}</option>
         </select>
+
+        <h3> Favorites {{converter.currentType}} units</h3>
+        <!-- TODO -->
     </div>
 
     <h2>Add conversion</h2>
