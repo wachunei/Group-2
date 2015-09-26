@@ -22,6 +22,8 @@
     <script type="text/javascript" src="dist/js/angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="app-converter.js"></script>
+    <script type="text/javascript" src="app-storage.js"></script>
+
 
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
@@ -94,7 +96,7 @@
         <div>
             <input type="text" placeholder="Unit name" ng-model="unitFormCtrl.firstUnit" required>
             =
-            <input type="number" placeholder="m" ng-model="unitFormCtrl.slope" required>&times;
+            <input type="number" step="any" placeholder="m" ng-model="unitFormCtrl.slope" required>&times;
             <input type="text" placeholder="Unit name" ng-model="unitFormCtrl.secondUnit" required>
             +
             <input type="number" placeholder="c" ng-model="unitFormCtrl.intercept" required>
