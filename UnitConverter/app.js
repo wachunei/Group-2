@@ -5,8 +5,28 @@
   app.controller('UnitController', ['converterService', '$log',
     function(converterService, $log) {
 
+      this.firstMagnitude = 0;
+      this.secondMagnitude = 0;
       this.c = converterService.converter;
       this.currentType = "length";
+
+      this.updateMagnitudes = function(sender) {
+        $log.log(this.currentFirstUnit === this.currentSecondUnit);
+        if(this.currentFirstUnit === this.currentSecondUnit) {
+          if (sender === 1) this.secondMagnitude = this.firstMagnitude;
+          else if (sender === 2) this.firstMagnitude = this.secondMagnitude;
+          return;
+        }
+
+        if(sender === 1) {
+          this.secondMagnitude = this.c[this.currentType][this.currentFirstUnit][this.currentSecondUnit](this.firstMagnitude);
+          $log.log(this.secondMagnitude);
+        } else if(sender ===2) {
+          this.firstMagnitude = this.c[this.currentType][this.currentSecondUnit][this.currentFirstUnit](this.secondMagnitude);
+          $log.log(this.firstMagnitude);
+        }
+        $log.log(this.firstMagnitude);
+      };
   }]);
 
   /* new Unit convertion controller */

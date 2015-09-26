@@ -77,12 +77,21 @@
         <option ng-repeat="(key, value) in converter.c" value="{{key}}">{{key}}</option>
     </select>
     <div>
+        <input type="number" step="any" ng-model="converter.firstMagnitude"
+        ng-change="converter.updateMagnitudes(1)">
 
-        <select ng-model="converter.currentFirstUnit">
+        <select ng-model="converter.currentFirstUnit" ng-change="converter.updateMagnitudes(2)" required>
+            <option value="" ng-if="false"></option>
             <option ng-repeat="(key, value) in converter.c[converter.currentType]" value="{{key}}">{{key}}</option>
         </select>
 
-        <select ng-model="converter.currentSecondUnit">
+
+        <input type="number" step="any" ng-model="converter.secondMagnitude"
+        ng-change="converter.updateMagnitudes(2)">
+
+
+        <select ng-model="converter.currentSecondUnit" ng-change="converter.updateMagnitudes(1)" required>
+            <option value="" ng-if="false"></option>
             <option ng-repeat="(key, value) in converter.c[converter.currentType]" value="{{key}}">{{key}}</option>
         </select>
     </div>
