@@ -8,8 +8,8 @@
     <title>Unit Converter</title>
 
     <!-- Bootstrap -->
-    <link href="dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="dist/css/custom.css">
+    <!-- <link href="dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="dist/css/custom.css"> -->
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,6 +21,8 @@
   <body ng-controller="UnitController as converter">
     <script type="text/javascript" src="dist/js/angular.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="app-converter.js"></script>
+
     <div class="site-wrapper">
       <div class="site-wrapper-inner">
         <div class="inner cover">
@@ -67,6 +69,46 @@
         </div>
       </div>
     </div>
+
+    <h1>Convert</h2>
+    <select ng-model="converter.currentType">
+        <option ng-repeat="(key, value) in converter.c" value="{{key}}">{{key}}</option>
+    </select>
+    <div>
+
+        <select ng-model="converter.currentFirstUnit">
+            <option ng-repeat="(key, value) in converter.c[converter.currentType]" value="{{key}}">{{key}}</option>
+        </select>
+
+        <select ng-model="converter.currentFirstUnit">
+            <option ng-repeat="(key, value) in converter.c[converter.currentType]" value="{{key}}">{{key}}</option>
+        </select>
+    </div>
+
+    <h2>Add conversion</h2>
+    <form name="newConversion" ng-controller="UnitFormController as unitFormCtrl"
+        ng-submit="newConversion.$valid && unitFormCtrl.addConversion()">
+        <select ng-model="unitFormCtrl.selectedType" required>
+            <option ng-repeat="(key, value) in converter.c" value="{{key}}">{{key}}</option>
+        </select>
+        <div>
+            <input type="text" placeholder="Unit name" ng-model="unitFormCtrl.firstUnit" required>
+            =
+            <input type="number" placeholder="m" ng-model="unitFormCtrl.slope" required>&times;
+            <input type="text" placeholder="Unit name" ng-model="unitFormCtrl.secondUnit" required>
+            +
+            <input type="number" placeholder="c" ng-model="unitFormCtrl.intercept" required>
+        </div>
+
+        <div ng-show="newConversion.$valid">
+            Adding convertion to {{unitFormCtrl.selectedType}}:
+            {{"1 " + unitFormCtrl.firstUnit + " = " + unitFormCtrl.slope +" &times; " +
+            unitFormCtrl.secondUnit + " + " + unitFormCtrl.intercept
+            }}
+
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
