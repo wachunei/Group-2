@@ -95,53 +95,7 @@
               <div class="tim-title">
                 <h2>Add conversion</h2>
               </div>
-              <form name="newConversion" ng-controller="UnitFormController as unitFormCtrl" ng-submit="newConversion.$valid && unitFormCtrl.addConversion()">
-                <select class="dropdown-toggle btn btn-fill btn-danger" id="add-conversion" ng-model="unitFormCtrl.selectedType" required>
-                  <option ng-repeat="(key, value) in converter.c" value="{{key}}">{{key}}</option>
-                </select>
-                <div class="row" id="big-row">
-                  <div class="col-lg-3">
-                    <div class="col-lg-10">
-                      <input class="form-control" ng-model="unitFormCtrl.firstUnit" placeholder="Unit name" required type="text">
-                    </div>
-                    <div class="col-lg-2">
-                      <p>
-                        =
-                      </p>
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <div class="col-lg-10">
-                      <input class="form-control" ng-model="unitFormCtrl.slope" placeholder="m" required step="any" type="number">
-                    </div>
-                    <div class="col-lg-2">
-                      &times;
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <div class="col-lg-10">
-                      <input class="form-control" ng-model="unitFormCtrl.secondUnit" placeholder="Unit name" required type="text">
-                    </div>
-                    <div class="col-lg-2">
-                      +
-                    </div>
-                  </div>
-                  <div class="col-lg-3">
-                    <input class="form-control" ng-model="unitFormCtrl.intercept" placeholder="c" required type="number">
-                  </div>
-                </div>
-
-                <div class="row" id="big-row">
-                  Adding convertion to
-                  {{unitFormCtrl.selectedType}}:
-                  {{"1 " + unitFormCtrl.firstUnit + " = " + unitFormCtrl.slope +" &times; " +
-                      unitFormCtrl.secondUnit + " + " + unitFormCtrl.intercept
-                      }}
-                </div>
-                <div class="row text-center" id="big-row">
-                  <input class="btn btn-fill btn-success" ng-disabled="!newConversion.$valid" type="submit" value="Submit"/>
-                </div>
-              </form>
+              <add-conversion></add-conversion>
             </div>
           </div>
         </div>

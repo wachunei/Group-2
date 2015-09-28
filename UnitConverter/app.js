@@ -30,46 +30,94 @@
       };
   }]);
 
+  app.directive('addConversion', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'add-conversion.html',
+      controller: function(converterService, dataService) {
+        this.selectedType = "length";
+
+        this.addConversion = function() {
+          var type = this.selectedType,
+            fUnit = this.firstUnit,
+            sUnit = this.secondUnit,
+            m = this.slope,
+            c = this.intercept,
+            m_ = (1.0)/m;
+            c_ = (c/m);
+            converter = converterService.converter;
+
+          if (!converter[type][fUnit]) {
+            converter[type][fUnit] = {};
+          }
+
+          if (!converter[type][sUnit]) {
+            converter[type][sUnit] = {};
+          }
+
+          if (!converter[type][fUnit][sUnit]) {
+            converter[type][fUnit][sUnit] = {};
+          }
+
+          if (!converter[type][sUnit][fUnit]) {
+            converter[type][sUnit][fUnit] = {};
+          }
+          converter[type][fUnit][sUnit].calc = converterService.evaluate(m)(c);
+          converter[type][sUnit][fUnit].calc = converterService.evaluate(m_)(c_);
+
+          dataService.newConvertion(type, fUnit, sUnit, m, c);
+          dataService.newConvertion(type, sUnit, fUnit, m_, c_);
+
+          dataService.saveData();
+
+          this.firstUnit = this.secondUnit = this.slope = this.intercept = null;
+        };
+      },
+      controllerAs: 'unitFormCtrl'
+    };
+  });
+
   /* new Unit convertion controller */
-  app.controller('UnitFormController', ['converterService', 'dataService',
-    function(converterService, dataService) {
-      this.selectedType = "length";
+  // app.controller('UnitFormController', ['converterService', 'dataService',
+  //   function(converterService, dataService) {
+  //     this.selectedType = "length";
+  //
+  //     this.addConversion = function() {
+  //       var type = this.selectedType,
+  //         fUnit = this.firstUnit,
+  //         sUnit = this.secondUnit,
+  //         m = this.slope,
+  //         c = this.intercept,
+  //         m_ = (1.0)/m;
+  //         c_ = (c/m);
+  //         converter = converterService.converter;
+  //
+  //       if (!converter[type][fUnit]) {
+  //         converter[type][fUnit] = {};
+  //       }
+  //
+  //       if (!converter[type][sUnit]) {
+  //         converter[type][sUnit] = {};
+  //       }
+  //
+  //       if (!converter[type][fUnit][sUnit]) {
+  //         converter[type][fUnit][sUnit] = {};
+  //       }
+  //
+  //       if (!converter[type][sUnit][fUnit]) {
+  //         converter[type][sUnit][fUnit] = {};
+  //       }
+  //       converter[type][fUnit][sUnit].calc = converterService.evaluate(m)(c);
+  //       converter[type][sUnit][fUnit].calc = converterService.evaluate(m_)(c_);
+  //
+  //       dataService.newConvertion(type, fUnit, sUnit, m, c);
+  //       dataService.newConvertion(type, sUnit, fUnit, m_, c_);
+  //
+  //       dataService.saveData();
+  //
+  //       this.firstUnit = this.secondUnit = this.slope = this.intercept = null;
+  //     };
+  //   }
+  // ]);
 
-      this.addConversion = function() {
-        var type = this.selectedType,
-          fUnit = this.firstUnit,
-          sUnit = this.secondUnit,
-          m = this.slope,
-          c = this.intercept,
-          m_ = (1.0)/m;
-          c_ = (c/m);
-          converter = converterService.converter;
-
-        if (!converter[type][fUnit]) {
-          converter[type][fUnit] = {};
-        }
-
-        if (!converter[type][sUnit]) {
-          converter[type][sUnit] = {};
-        }
-
-        if (!converter[type][fUnit][sUnit]) {
-          converter[type][fUnit][sUnit] = {};
-        }
-
-        if (!converter[type][sUnit][fUnit]) {
-          converter[type][sUnit][fUnit] = {};
-        }
-        converter[type][fUnit][sUnit].calc = converterService.evaluate(m)(c);
-        converter[type][sUnit][fUnit].calc = converterService.evaluate(m_)(c_);
-
-        dataService.newConvertion(type, fUnit, sUnit, m, c);
-        dataService.newConvertion(type, sUnit, fUnit, m_, c_);
-
-        dataService.saveData();
-
-        this.firstUnit = this.secondUnit = this.slope = this.intercept = null;
-      };
-    }
-  ]);
 })();
