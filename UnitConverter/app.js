@@ -11,7 +11,7 @@
         this.secondMagnitude = 0;
         this.c = converterService.converter;
         this.currentType = "length";
-        // this.favorites = null;
+        this.favorites = null;
 
         this.updateMagnitudes = function(sender) {
           $log.log(this.c);
@@ -31,9 +31,10 @@
         this.toggleFavorite = function (type, unit, favorite) {
           converterService.setFavorite(type, unit, favorite);
         };
-        // this.getFavorites = function(type) {
-        //   this.favorites = converterService.getFavorites(type);
-        // }
+
+        this.getFavorites = function(type) {
+          this.favorites = converterService.getFavorites(type);
+        };
     },
     controllerAs: 'converter'
     };
@@ -54,7 +55,7 @@
             m = this.slope,
             c = this.intercept,
             m_ = (1.0)/m;
-            c_ = (c/m);
+            c_ = (c/m),
             converter = converterService.converter;
 
           if (!converter[type][fUnit]) {
@@ -77,7 +78,58 @@
 
           dataService.newConvertion(type, fUnit, sUnit, m, c);
           dataService.newConvertion(type, sUnit, fUnit, m_, c_);
+          var combinations = [];
+          if(dataService.storedData){
+            dataService.storedData.forEach(
+              function(obj1) {
+                dataService.storedData.forEach(
+                  function(obj2) {
+                    if(obj1.type == obj2.type) {
+                      if(obj1.fUnit !== obj2.fUnit) {
+                        var index = dataService.storedData
+                          .map(function(e) {
+                            return e.type + "|" + e.fUnit + "|" + e.sUnit;
+                          })
+                          .indexOf(obj1.type + "|" + obj1.fUnit + "|" + obj2.fUnit);
 
+                        if(index == -1) {
+                          var indexMiddle = dataService.storedData
+                            .map(function(e) {
+                              return e.type + "|" + e.fUnit + "|" + e.sUnit;
+                            })
+                            .indexOf(obj1.type + "|" + obj1.sUnit + "|" + obj2.fUnit);
+
+                          if(indexMiddle !== -1) {
+                            combinations.push([obj1.type, obj1.fUnit, obj2.fUnit,
+                              obj1.slope*dataService.storedData[indexMiddle].slope,
+                              (dataService.storedData[indexMiddle].slope*obj1.intercept+dataService.storedData[indexMiddle].intercept)]);
+                          }
+                        }
+
+                      }
+                    }
+                });
+            });
+          }
+          combinations.forEach(function(e) {
+            dataService.newConvertion(e[0],e[1],e[2],e[3],e[4]);
+            if (!converter[e[0]][e[1]]) {
+              converter[e[0]][e[1]] = {};
+            }
+
+            if (!converter[e[0]][e[2]]) {
+              converter[e[0]][e[2]] = {};
+            }
+
+            if (!converter[e[0]][e[1]][e[2]]) {
+              converter[e[0]][e[1]][e[2]] = {};
+            }
+
+            if (!converter[e[0]][e[2]][e[1]]) {
+              converter[e[0]][e[2]][e[1]] = {};
+            }
+            converter[e[0]][e[1]][e[2]].calc = converterService.evaluate(e[3])(e[4]);
+          });
           dataService.saveData();
 
           this.firstUnit = this.secondUnit = this.slope = this.intercept = null;

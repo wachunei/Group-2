@@ -11,7 +11,7 @@
       };
     };
 
-    if (dataService.storedData.length > 0) {
+    self.updateConverter = function() {
       var converter = {
         length: {},
         temperature: {},
@@ -41,6 +41,11 @@
       });
 
       self.converter = converter;
+    };
+
+
+    if (dataService.storedData.length > 0) {
+      self.updateConverter();
 
     } else {
       self.converter = {
@@ -59,10 +64,12 @@
     self.getFavorites = function(type) {
        return dataService.getFavorites(type);
     };
+
+
   }]);
 
   app.service('dataService', ['storageService',
-    function(storageService, converterService) {
+    function(storageService) {
       var self = this;
       self.storedData = storageService.getData() ||  [];
 
