@@ -1,34 +1,66 @@
 (function() {
   var app = angular.module('unitConverter', ['unitConverter-converter']);
+  app.directive('convertUnit', function() {
+    return {
+      restrict: 'E',
+      templateUrl: 'convert-unit.html',
+      controller: function(converterService, $log) {
 
+        this.firstMagnitude = 0;
+        this.secondMagnitude = 0;
+        this.c = converterService.converter;
+        this.currentType = "length";
+
+        this.updateMagnitudes = function(sender) {
+          $log.log(this.c);
+          if(this.currentFirstUnit === this.currentSecondUnit) {
+            if (sender === 1) this.secondMagnitude = this.firstMagnitude;
+            else if (sender === 2) this.firstMagnitude = this.secondMagnitude;
+            return;
+          }
+
+          if(sender === 1) {
+            this.secondMagnitude = this.c[this.currentType][this.currentFirstUnit][this.currentSecondUnit].calc(this.firstMagnitude);
+          } else if(sender ===2) {
+            this.firstMagnitude = this.c[this.currentType][this.currentSecondUnit][this.currentFirstUnit].calc(this.secondMagnitude);
+          }
+        };
+
+        this.toggleFavorite = function (type, unit, favorite) {
+          converterService.setFavorite(type, unit, favorite);
+        };
+    },
+    controllerAs: 'converter'
+    };
+  });
   /* Main conversion form controller */
-  app.controller('UnitController', ['converterService', '$log',
-    function(converterService, $log) {
-
-      this.firstMagnitude = 0;
-      this.secondMagnitude = 0;
-      this.c = converterService.converter;
-      this.currentType = "length";
-
-      this.updateMagnitudes = function(sender) {
-        $log.log(this.c);
-        if(this.currentFirstUnit === this.currentSecondUnit) {
-          if (sender === 1) this.secondMagnitude = this.firstMagnitude;
-          else if (sender === 2) this.firstMagnitude = this.secondMagnitude;
-          return;
-        }
-
-        if(sender === 1) {
-          this.secondMagnitude = this.c[this.currentType][this.currentFirstUnit][this.currentSecondUnit].calc(this.firstMagnitude);
-        } else if(sender ===2) {
-          this.firstMagnitude = this.c[this.currentType][this.currentSecondUnit][this.currentFirstUnit].calc(this.secondMagnitude);
-        }
-      };
-
-      this.toggleFavorite = function (type, unit, favorite) {
-        converterService.setFavorite(type, unit, favorite);
-      };
-  }]);
+  // app.controller('UnitController', ['converterService', '$log',
+  //   function(converterService, $log) {
+  //
+  //     this.firstMagnitude = 0;
+  //     this.secondMagnitude = 0;
+  //     this.c = converterService.converter;
+  //     this.currentType = "length";
+  //
+  //     this.updateMagnitudes = function(sender) {
+  //       $log.log(this.c);
+  //       if(this.currentFirstUnit === this.currentSecondUnit) {
+  //         if (sender === 1) this.secondMagnitude = this.firstMagnitude;
+  //         else if (sender === 2) this.firstMagnitude = this.secondMagnitude;
+  //         return;
+  //       }
+  //
+  //       if(sender === 1) {
+  //         this.secondMagnitude = this.c[this.currentType][this.currentFirstUnit][this.currentSecondUnit].calc(this.firstMagnitude);
+  //       } else if(sender ===2) {
+  //         this.firstMagnitude = this.c[this.currentType][this.currentSecondUnit][this.currentFirstUnit].calc(this.secondMagnitude);
+  //       }
+  //     };
+  //
+  //     this.toggleFavorite = function (type, unit, favorite) {
+  //       converterService.setFavorite(type, unit, favorite);
+  //     };
+  // }]);
 
   app.directive('addConversion', function() {
     return {
