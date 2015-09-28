@@ -27,7 +27,7 @@
           sUnit = obj.sUnit,
           m = obj.slope,
           c = obj.intercept;
-          favorite = obj.favorite;
+        favorite = obj.favorite;
 
         if (!converter[type][fUnit]) {
           converter[type][fUnit] = {};
@@ -56,6 +56,9 @@
     self.setFavorite = function(type, unit, favorite) {
       dataService.setFavorite(type, unit, favorite);
     };
+    // self.getFavorites = function(type) {
+    //   return dataService.getFavorites(type);
+    // }
   }]);
 
   app.service('dataService', ['storageService',
@@ -65,8 +68,10 @@
 
       self.newConvertion = function(type, fUnit, sUnit, m, c) {
         var index = self.storedData
-                    .map(function(e) { return e.type+"|"+e.fUnit+"|"+e.sUnit;})
-                    .indexOf(type+"|"+fUnit+"|"+sUnit);
+          .map(function(e) {
+            return e.type + "|" + e.fUnit + "|" + e.sUnit;
+          })
+          .indexOf(type + "|" + fUnit + "|" + sUnit);
 
         if (index != -1) {
           self.storedData[index].slope = m;
@@ -82,9 +87,11 @@
         }
       };
 
-      self.setFavorite = function (type, unit, favorite) {
+      self.setFavorite = function(type, unit, favorite) {
         self.storedData
-          .filter(function(e) { return e.type === type && e.fUnit === unit})
+          .filter(function(e) {
+            return e.type === type && e.fUnit === unit
+          })
           .map(function(e) {
             e.favorite = favorite;
           });
@@ -94,9 +101,17 @@
       self.saveData = function() {
         storageService.saveData(self.storedData);
       };
-
-
-
+      self.getFavorites = function(type) {
+        var favorites = [];
+        self.storedData
+          .filter(function(e) {
+            return e.type === type && e.favorite === true
+          })
+          .map(function(e) {
+            favorites.push(e);
+          });
+        return favorites;
+      };
     }
   ]);
 

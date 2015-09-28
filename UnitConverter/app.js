@@ -1,6 +1,6 @@
 (function() {
   var app = angular.module('unitConverter', ['unitConverter-converter']);
-  
+
   app.directive('convertUnit', function() {
     return {
       restrict: 'E',
@@ -11,6 +11,7 @@
         this.secondMagnitude = 0;
         this.c = converterService.converter;
         this.currentType = "length";
+        // this.favorites = null;
 
         this.updateMagnitudes = function(sender) {
           $log.log(this.c);
@@ -30,6 +31,9 @@
         this.toggleFavorite = function (type, unit, favorite) {
           converterService.setFavorite(type, unit, favorite);
         };
+        // this.getFavorites = function(type) {
+        //   this.favorites = converterService.getFavorites(type);
+        // }
     },
     controllerAs: 'converter'
     };
