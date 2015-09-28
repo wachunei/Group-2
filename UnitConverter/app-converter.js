@@ -56,9 +56,9 @@
     self.setFavorite = function(type, unit, favorite) {
       dataService.setFavorite(type, unit, favorite);
     };
-    // self.getFavorites = function(type) {
-    //   return dataService.getFavorites(type);
-    // }
+    self.getFavorites = function(type) {
+       return dataService.getFavorites(type);
+    };
   }]);
 
   app.service('dataService', ['storageService',
@@ -90,13 +90,13 @@
       self.setFavorite = function(type, unit, favorite) {
         self.storedData
           .filter(function(e) {
-            return e.type === type && e.fUnit === unit
+            return e.type === type && e.fUnit === unit;
           })
           .map(function(e) {
             e.favorite = favorite;
           });
         self.saveData();
-      }
+      };
 
       self.saveData = function() {
         storageService.saveData(self.storedData);
@@ -105,7 +105,7 @@
         var favorites = [];
         self.storedData
           .filter(function(e) {
-            return e.type === type && e.favorite === true
+            return e.type === type && e.favorite === true;
           })
           .map(function(e) {
             favorites.push(e);
