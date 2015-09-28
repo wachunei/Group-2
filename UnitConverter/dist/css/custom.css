@@ -1,3 +1,20 @@
+.row {
+  width: 100%;
+}
 .row#big-row {
   margin: 30px;
+}
+
+.star-check {
+    display:none;
+}
+
+.star-sym {font-size: 20px; cursor:pointer; color: gold}
+
+.star-check:checked + .star-sym:after {
+    content: "★";
+}
+
+.star-sym:after {
+    content: "☆";
 }
