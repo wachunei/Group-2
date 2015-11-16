@@ -1,0 +1,54 @@
+<div class="ui six column centered grid">
+  <div class="column">
+    <h1 class="ui icon header">
+      <i class="checkmark icon"></i>
+      <div class="content">
+        <p>List Manager</p>
+      </div>
+    </h1>
+  </div>
+</div>
+<div class="ui grid">
+  <div class="two column centered row">
+    <div class="row">
+
+    </div>
+    <div class="column">
+      <div class="ui fluid icon input">
+        {{input type="text" placeholder="New list's title" id="new-list" enter="createList" value=listTitle}}
+        <i class="add square icon"></i>
+      </div>
+      <div class="ui raised padded text segment">
+        <h2 class="ui header">My lists</h2>
+        <div class="ui relaxed divided large list">
+          {{#each model as |list|}}
+            <div class="item">
+              <div class="right floated content">
+                  <i class="copy icon clone-icon link" {{action 'cloneList' list}}></i>
+                  <i class="close red link icon delete-icon" {{action 'deleteList' list}}></i>
+              </div>
+              <div class="content">
+                {{#link-to "lists.show" list class="header" }}{{list.title}}{{/link-to}}
+                <div class="description">
+                  <!-- <div class="ui label">Completed <div class="detail">X out of Y</div></div> -->
+                </div>
+              </div>
+            </div>
+            {{else}}
+              <div class="ui message">
+                <div class="content">
+                  <div class="header">
+                    Whoa, no lists found!
+                  </div>
+                  <p>Use the input above to create your first list.</p>
+                </div>
+              </div>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+    <div class="column" id="right-column">
+      {{outlet}}
+    </div>
+  </div>
+</div>

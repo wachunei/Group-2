@@ -1,0 +1,66 @@
+<h2 class="ui huge header" id="right-column">{{listTitle}}</h2>
+  <div class="ui input">
+    {{input type="text" autofocus="true" placeholder="New list item" id="new-list-item" enter="createListItem" value=listItemTitle}}
+  </div>
+  {{view "select" class="ui dropdown" content=categories optionValuePath="content.id" optionLabelPath="content.name" value=selectedCategory}}
+
+<div class="ui menu">
+  <div class="item">
+      <div class="ui toggle checkbox">
+        {{input type='checkbox' checked=asCategories}}
+        <label>Categories</label>
+      </div>
+  </div>
+  <div class="item">
+    <div class="ui checkbox">
+      {{input type='checkbox' checked=hideChecked}}
+      <label>Hide checked</label>
+    </div>
+  </div>
+  <div class=" item">
+      <div class="ui mini right icon input">
+        {{input type="text" placeholder="New Category" id="new-category" enter="createCategory" value=categoryName}}
+        <i class="add icon"></i>
+      </div>
+  </div>
+</div>
+
+  <div class="ui padded segment">
+    <div class="ui relaxed divided list">
+      {{#unless asCategories}}
+        {{#each items as |list-item|}}
+          <div class="item" {{action 'toggleIsChecked' list-item}}>
+            <i id="list-item-icon" {{bind-attr class=":square :icon :large list-item.isChecked:check list-item.isChecked:teal:grey"}}></i>
+            <div class="content" id="item-content">
+              <span class="header">{{list-item.title}}</span>
+              <span class="ui mini label">{{list-item.category.name}}</span>
+            </div>
+          </div>
+          {{else}}
+            <div class="ui message">
+              <div class="content">
+                <p>Use the input above to add an item to {{listTitle}}</p>
+              </div>
+            </div>
+        {{/each}}
+      {{else}}
+        {{#each categories as |cat|}}
+            <h3 class="ui ribbon label huge">{{cat.name}}</h3>
+            {{#each cat.items as |list-item|}}
+              <div class="item" {{action 'toggleIsChecked' list-item}}>
+                <i id="list-item-icon" {{bind-attr class=":square :icon :large list-item.isChecked:check list-item.isChecked:teal:grey"}}></i>
+                <div class="content" id="item-content">
+                  <span class="header">{{list-item.title}}</span>
+                </div>
+              </div>
+              {{else}}
+                <div class="ui message">
+                  <div class="content">
+                    <p>Use the input above to add an item to {{cat.name}}</p>
+                  </div>
+                </div>
+            {{/each}}
+        {{/each}}
+      {{/unless}}
+    </div>
+  </div>

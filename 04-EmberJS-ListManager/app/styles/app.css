@@ -1,0 +1,9 @@
+.item i.delete-icon.icon {
+  opacity: 0.3;
+}
+.item i.clone-icon.icon {
+  opacity: 0.3;
+}
+h2#right-column {
+  margin-top: 30px;
+}
